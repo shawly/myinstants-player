@@ -174,8 +174,6 @@ function play()
 	
 	playAllowed($btn);
 	
-	$btn.bind('click', stop);
-
 	//
 	// HINT: here may be your implementation to send audio url 
 	//       to another service like SinusBot API
@@ -196,8 +194,6 @@ function stop()
 	$("#audio-container > audio").remove();
 	
 	playbackStopped($btn);
-	
-	$btn.bind('click', play);
 }
 
 function playbackStopped($btn)
