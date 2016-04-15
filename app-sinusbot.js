@@ -13,7 +13,7 @@ $(document).ready(function(){
 	tryLogin();
 
 	$("#auth").click(function(){
-		login($("#host").val(), $("#port").val(), $("#login").val(), $("#password").val());
+		login($("#login").val(), $("#password").val());
 	});
 	$("#logout").click(function(){
 		logout();
@@ -39,6 +39,13 @@ function play()
 	});
 }
 
+function stop() {
+	var $btn = $(this);
+	var botId = $("#bot-list").val();
+	bot.stop(botId, function(){
+		playAllowed($btn);
+	});
+}
 
 
 
@@ -48,30 +55,26 @@ function tryLogin() {
 	$("#login-loading").hide();
 	
 	if ( localStorage["host"] ) {	
-		$("#host").val( localStorage["host"] );
-		$("#port").val( localStorage["port"] );
 		$("#login").val( localStorage["login"] );
 		
 		if ( localStorage["token"] ) {
-			tryGetInstances( localStorage["host"], localStorage["port"], localStorage["token"]);
+			tryGetInstances(localStorage["token"]);
 		}
 	}
 }
 
-function login(host, port, login, password) {
+function login(login, password) {
 	
 	$("#login-form").hide();
 	$("#login-loading").show();
 
-	localStorage["host"] = host;
-	localStorage["port"] = port;
 	localStorage["login"] = login;
 	
-	bot = new SinusBotAPI(host, port);
+	bot = new SinusBotAPI();
 	bot.auth( login, password, function(){
 		localStorage["token"] = bot.token;
 
-		tryGetInstances(bot.host, bot.port, bot.token);
+		tryGetInstances(bot.token);
 	}, 
 	function(data){
 		var err = (data.error) ? data.error : "LOGIN FAILED";
@@ -79,7 +82,7 @@ function login(host, port, login, password) {
 		logout();
 	});
 }
-function tryGetInstances(host, port, token) {
+function tryGetInstances(token) {
 	
 	$("#login-form").hide();
 	$("#login-loading").show();
@@ -123,9 +126,7 @@ function logout() {
 
 
 
-function SinusBotAPI(host, port) {
-	this.host = host.trim();
-	this.port = port.trim();
+function SinusBotAPI() {
 	this.botId = false;
 	this.token = false;
 	this.instances = {};
@@ -173,6 +174,14 @@ function SinusBotAPI(host, port) {
 
 	this.playUrl = function(instanceId, url, callback) {
 		this.send('post', '/api/v1/bot/i/' + instanceId + '/playUrl?url=' + url, {}, function(data){
+			if (callback != undefined) {
+				callback(data);
+			}
+		});
+	};
+
+	this.stop = function(instanceId, callback) {
+		this.send('post', '/api/v1/bot/i/' + instanceId + '/stop', {}, function(data){
 			if (callback != undefined) {
 				callback(data);
 			}
