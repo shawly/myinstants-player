@@ -173,6 +173,7 @@ function play()
 	$("#audio-container").html('<audio autoplay><source src="' + playUrl + '" type="audio/mpeg"></audio>');
 	
 	playAllowed($btn);
+	
 	$btn.bind('click', stop);
 
 	//
@@ -191,9 +192,27 @@ function play()
 function stop()
 {
 	var $btn = $(this); // el
+	
 	$("#audio-container > audio").remove();
+	
+	playbackStopped($btn);
+	
 	$btn.bind('click', play);
-	$btn.play = false;
+}
+
+function playbackStopped($btn)
+{
+	currentIdx = $btn.attr('data-idx');
+	
+	// update current status
+	items[currentIdx].play = false;
+	
+	var duration = Math.ceil(items[currentIdx].duration);
+	var $duration = items[currentIdx].durationEl; // el
+	if ($duration.text() != duration)
+	$duration.text(duration); // reset duration
+	// and clear old interval (may be from another checkbox)
+	clearInterval(elapsedInterval);
 }
 
 // activate button
