@@ -58,7 +58,7 @@ function tryLogin() {
 	$("#login-form").show();
 	$("#login-loading").hide();
 	
-	if ( localStorage["host"] ) {	
+	if ( localStorage["login"] ) {	
 		$("#login").val( localStorage["login"] );
 		
 		if ( localStorage["token"] ) {
@@ -91,7 +91,7 @@ function tryGetInstances(token) {
 	$("#login-form").hide();
 	$("#login-loading").show();
 
-	bot = new SinusBotAPI(host, port);
+	bot = new SinusBotAPI();
 	bot.token = token;
 	
 	bot.getInstances(function(data){
