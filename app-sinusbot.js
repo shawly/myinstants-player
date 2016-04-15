@@ -29,8 +29,6 @@ function play()
 	var playUrl = 'http://api.cleanvoice.ru/myinstants/?type=file&id=' + items[currentIdx].id;
 	//$("#audio-container").html('<audio autoplay><source src="' + playUrl + '" type="audio/mpeg"></audio>');
 	
-	$btn.bind('click', stop);
-	
 	//
 	// HINT: here may be your implementation to send audio url 
 	//       to another service like SinusBot API
@@ -43,7 +41,6 @@ function play()
 
 function stop() {
 	var $btn = $(this);
-	$btn.bind('click', play);
 	
 	var botId = $("#bot-list").val();
 	bot.stop(botId, function(){
