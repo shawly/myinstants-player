@@ -191,7 +191,7 @@ function play()
 function stop()
 {
 	var $btn = $(this); // el
-	$("#audio-container").remove();
+	$("#audio-container > audio").remove();
 	$btn.bind('click', play);
 }
 
