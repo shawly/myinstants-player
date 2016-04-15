@@ -62,7 +62,7 @@ function updateBinds()
 		items[i].btnEl = $(this).find(".switch input:checkbox");
 		items[i].durationEl = $(this).find(".row-duration span");
 		
-		items[i].btnEl.bind('click', play);
+		items[i].btnEl.bind('change', play);
 		i++;
 	});
 	
@@ -212,7 +212,7 @@ function playbackStopped($btn)
 	// and clear old interval (may be from another checkbox)
 	clearInterval(elapsedInterval);
 	
-	$btn.bind('click', play);
+	$btn.bind('change', play);
 }
 
 // activate button
@@ -274,7 +274,7 @@ function playAllowed($btn)
 			$btn.attr('checked', false);
 		}
 	}, 1000);
-	$btn.bind('click', stop);
+	$btn.bind('change', stop);
 }
 
 
