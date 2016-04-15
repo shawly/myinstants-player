@@ -202,6 +202,7 @@ function stop()
 
 function playbackStopped($btn)
 {
+	$btn.unbind();
 	currentIdx = $btn.attr('data-idx');
 	
 	// update current status
@@ -213,11 +214,14 @@ function playbackStopped($btn)
 	$duration.text(duration); // reset duration
 	// and clear old interval (may be from another checkbox)
 	clearInterval(elapsedInterval);
+	
+	$btn.bind('click', play);
 }
 
 // activate button
 function playAllowed($btn)
 {
+	$btn.unbind();
 	currentIdx = $btn.attr('data-idx');
 	
 	var duration = Math.ceil(items[currentIdx].duration);
@@ -273,6 +277,7 @@ function playAllowed($btn)
 			$btn.attr('checked', false);
 		}
 	}, 1000);
+	$btn.bind('click', stop);
 }
 
 
