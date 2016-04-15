@@ -26,26 +26,47 @@ function play()
 {
 	var $btn = $(this); // el
 	currentIdx = $btn.attr('data-idx');
-	var playUrl = 'http://api.cleanvoice.ru/myinstants/?type=file&id=' + items[currentIdx].id;
-	//$("#audio-container").html('<audio autoplay><source src="' + playUrl + '" type="audio/mpeg"></audio>');
+	var player = $btn.attr('data-player');
 	
-	//
-	// HINT: here may be your implementation to send audio url 
-	//       to another service like SinusBot API
-	//       something like the following code:
-	var botId = $("#bot-list").val();
-	bot.playUrl(botId, encodeURIComponent(playUrl), function(){
-		playAllowed($btn);
-	});
+	switch(player) {
+		case "browser":
+			$("#audio-container").html('<audio autoplay><source src="' + playUrl + '" type="audio/mpeg"></audio>');
+	
+			playAllowed($btn);
+			break;
+		case "sinusbot":
+			var playUrl = 'http://api.cleanvoice.ru/myinstants/?type=file&id=' + items[currentIdx].id;
+			var botId = $("#bot-list").val();
+			bot.stop(botId, null);
+			bot.playUrl(botId, encodeURIComponent(playUrl), function(){
+				playAllowed($btn);
+			});
+			break;
+		default:
+			console.info('Unkown player ' + player);
+	}
+	
 }
 
 function stop() {
 	var $btn = $(this);
+	var player = $btn.attr('data-player');
 	
-	var botId = $("#bot-list").val();
-	bot.stop(botId, function(){
-		playbackStopped($btn);
-	});
+	switch(player) {
+		case "browser":
+			$("#audio-container > audio").remove();
+	
+			playbackStopped($btn);
+			break;
+		case "sinusbot":
+			var botId = $("#bot-list").val();
+			bot.stop(botId, function(){
+				playbackStopped($btn);
+			});
+			break;
+		default:
+			console.info('Unkown player ' + player);
+	}
 }
 
 
