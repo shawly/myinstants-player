@@ -166,7 +166,7 @@ function getItemIndexById(id)
 function click()
 {
 	var $btn = $(this);
-	if (!$btn.attr('checked')) {
+	if ($btn.attr('checked')) {
 		play($btn);
 	} else {
 		stop($btn);
