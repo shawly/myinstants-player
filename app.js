@@ -203,6 +203,7 @@ function playbackStopped($btn)
 	
 	// update current status
 	items[currentIdx].play = false;
+	$btn.attr('checked', false);
 	
 	var duration = Math.ceil(items[currentIdx].duration);
 	var $duration = items[currentIdx].durationEl; // el
@@ -233,7 +234,7 @@ function playAllowed($btn)
 	// update current status
 	items[currentIdx].play = true;
 	// check button always on click
-	//$btn.attr('checked', true);
+	$btn.attr('checked', true);
 	
 	
 	setTimeout(function(){
