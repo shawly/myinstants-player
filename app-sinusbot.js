@@ -28,6 +28,8 @@ function play()
 	currentIdx = $btn.attr('data-idx');
 	var player = $btn.attr('data-player');
 	
+	var playUrl = 'http://api.cleanvoice.ru/myinstants/?type=file&id=' + items[currentIdx].id;
+	
 	switch(player) {
 		case "browser":
 			$("#audio-container").html('<audio autoplay><source src="' + playUrl + '" type="audio/mpeg"></audio>');
@@ -35,7 +37,6 @@ function play()
 			playAllowed($btn);
 			break;
 		case "sinusbot":
-			var playUrl = 'http://api.cleanvoice.ru/myinstants/?type=file&id=' + items[currentIdx].id;
 			var botId = $("#bot-list").val();
 			bot.stop(botId, null);
 			bot.playUrl(botId, encodeURIComponent(playUrl), function(){
