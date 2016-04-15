@@ -135,6 +135,14 @@ div.row-container table td {
         0 0 10px 2px rgba(0, 210, 0, 0.5);
 }
 
+.switch.color.green label:before {
+	background: radial-gradient(40% 35%, #00FB2C, #74FF00 60%);
+}
+
+.switch.color.red label:before {
+	background: radial-gradient(40% 35%, #FB0000, #FF0000 60%);
+}
+
 .clear {
 	clear: both;
 }
@@ -235,9 +243,6 @@ div.row-container table td {
 .tab-item.active:hover {
 	background: white;
 }
-
-
-
 
 /* favourite button */
 
