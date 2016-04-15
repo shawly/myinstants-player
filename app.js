@@ -62,7 +62,7 @@ function updateBinds()
 		items[i].btnEl = $(this).find(".switch input:checkbox");
 		items[i].durationEl = $(this).find(".row-duration span");
 		
-		items[i].btnEl.bind('change', click);
+		items[i].btnEl.bind('click', click);
 		i++;
 	});
 	
