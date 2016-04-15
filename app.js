@@ -62,7 +62,7 @@ function updateBinds()
 		items[i].btnEl = $(this).find(".switch input:checkbox");
 		items[i].durationEl = $(this).find(".row-duration span");
 		
-		items[i].btnEl.bind('change', play);
+		items[i].btnEl.bind('change', click);
 		i++;
 	});
 	
@@ -163,9 +163,18 @@ function getItemIndexById(id)
 	return false;
 }
 
-function play()
+function click()
 {
-	var $btn = $(this); // el
+	var $btn = $(this);
+	if (!$btn.attr('checked')) {
+		play($btn);
+	} else {
+		stop($btn);
+	}
+}
+
+function play($btn)
+{
 	currentIdx = $btn.attr('data-idx');
 
 	var playUrl = 'http://api.cleanvoice.ru/myinstants/?type=file&id=' + items[currentIdx].id;
@@ -187,10 +196,8 @@ function play()
 	*/
 }
 
-function stop()
+function stop($btn)
 {
-	var $btn = $(this); // el
-	
 	$("#audio-container > audio").remove();
 	
 	playbackStopped($btn);
@@ -198,7 +205,6 @@ function stop()
 
 function playbackStopped($btn)
 {
-	$btn.unbind();
 	currentIdx = $btn.attr('data-idx');
 	
 	// update current status
@@ -211,14 +217,11 @@ function playbackStopped($btn)
 	$duration.text(duration); // reset duration
 	// and clear old interval (may be from another checkbox)
 	clearInterval(elapsedInterval);
-	
-	$btn.bind('change', play);
 }
 
 // activate button
 function playAllowed($btn)
 {
-	$btn.unbind();
 	currentIdx = $btn.attr('data-idx');
 	
 	var duration = Math.ceil(items[currentIdx].duration);
@@ -274,7 +277,6 @@ function playAllowed($btn)
 			$btn.attr('checked', false);
 		}
 	}, 1000);
-	$btn.bind('change', stop);
 }
 
 
