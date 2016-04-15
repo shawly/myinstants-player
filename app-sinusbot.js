@@ -37,14 +37,18 @@ function play()
 	bot.playUrl(botId, encodeURIComponent(playUrl), function(){
 		playAllowed($btn);
 	});
+	
+	$btn.bind('click', stop);
 }
 
 function stop() {
 	var $btn = $(this);
 	var botId = $("#bot-list").val();
 	bot.stop(botId, function(){
-		playAllowed($btn);
+		playbackStopped($btn);
 	});
+	
+	$btn.bind('click', play);
 }
 
 
