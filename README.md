@@ -1,6 +1,6 @@
 ### MyInstants Sinusbot Player
 
-This fork of HarpyWar's MyInstant Player, was created to be hosted on your own webserver without the need of forwarding access to SinusBot's webinterface.
+This fork of HarpyWar's MyInstant Player, was created because I wanted to host it on my own webserver without the need of forwarding access to SinusBot's webinterface.
 
 #### Server Configuration for Nginx
 ````
@@ -32,7 +32,7 @@ If you also want to make SinusBot accessible over port 80 you can add this to yo
 ````
 server {
         listen 80;
-        server_name musicbot.vpn.ho.me sinusbot.vpn.ho.me;
+        server_name musicbot.example.com sinusbot.example.com;
 
         location / {
                 proxy_pass http://127.0.0.1:8087/;  # You have to adjust the IP if SinusBot is running on another address.
