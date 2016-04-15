@@ -118,8 +118,14 @@
 			<div class="fav {{is_bookmarked this.id}}" data-id="{{this.id}}" title="Add to favourites"></div> 
 		</td>
 		<td>
-			<div class="switch" title="Play sound">
-				<input type="checkbox" data-idx="{{@index}}">
+			<div class="switch" title="Play sound locally">
+				<input type="checkbox" data-player="browser" data-idx="{{@index}}">
+				<label></label>
+			</div> 
+		</td>
+		<td>
+			<div class="switch" title="Play sound via sinusbot">
+				<input type="checkbox" data-player="sinusbot" data-idx="{{@index}}">
 				<label></label>
 			</div> 
 		</td>
