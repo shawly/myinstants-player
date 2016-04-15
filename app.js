@@ -193,6 +193,7 @@ function stop()
 	var $btn = $(this); // el
 	$("#audio-container > audio").remove();
 	$btn.bind('click', play);
+	$btn.play = false;
 }
 
 // activate button
