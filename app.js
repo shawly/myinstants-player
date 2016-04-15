@@ -173,7 +173,7 @@ function play()
 	$("#audio-container").html('<audio autoplay><source src="' + playUrl + '" type="audio/mpeg"></audio>');
 	
 	playAllowed($btn);
-	$btn.btnEl.bind('click', stop);
+	$btn.bind('click', stop);
 
 	//
 	// HINT: here may be your implementation to send audio url 
@@ -192,7 +192,7 @@ function stop()
 {
 	var $btn = $(this); // el
 	$("#audio-container").remove();
-	$btn.btnEl.bind('click', play);
+	$btn.bind('click', play);
 }
 
 // activate button
