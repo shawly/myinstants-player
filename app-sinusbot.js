@@ -22,9 +22,8 @@ $(document).ready(function(){
 });
 
 // redefine function that defined in app.js
-function play()
+function play($btn)
 {
-	var $btn = $(this); // el
 	currentIdx = $btn.attr('data-idx');
 	var player = $btn.attr('data-player');
 	
@@ -49,8 +48,7 @@ function play()
 	
 }
 
-function stop() {
-	var $btn = $(this);
+function stop($btn) {
 	var player = $btn.attr('data-player');
 	
 	switch(player) {
